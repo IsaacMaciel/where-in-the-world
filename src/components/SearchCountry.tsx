@@ -1,9 +1,10 @@
 import { Flex, Input, Icon, useColorModeValue } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
 import { color } from "../../styles/colorsTheme";
+import { useTheme } from "../context/themeContext";
 
 export const SearchCountry = () => {
-  const bg = useColorModeValue("#ffffff", color.dark.darkBlue);
+  const { bg } = useTheme();
   return (
     <Flex
       as="label"

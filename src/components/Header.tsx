@@ -7,11 +7,12 @@ import {
 } from "@chakra-ui/react";
 import { RiMoonLine, RiSunLine } from "react-icons/ri";
 import { color } from "../../styles/colorsTheme";
+import { useTheme } from "../context/themeContext";
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const icon = colorMode === "dark" ? <RiSunLine /> : <RiMoonLine />;
-  const bg = useColorModeValue("#ffffff",color.dark.darkBlue);
+  const { bg } = useTheme();
 
   return (
     <Flex

@@ -1,6 +1,6 @@
 import { Header } from "../components/Header";
 import { SearchCountry } from "../components/SearchCountry";
-import { VStack, Flex, Box } from "@chakra-ui/react";
+import { VStack, Flex, Box, useTheme } from "@chakra-ui/react";
 import { SelectRegion } from "../components/SelectRegion";
 import { CardCountryList } from "../components/CardCountryList";
 
