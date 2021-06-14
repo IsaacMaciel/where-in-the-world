@@ -3,13 +3,18 @@ import {
   Image,
   Flex,
   Text,
-  Avatar,
-  useColorModeValue,
 } from "@chakra-ui/react";
-import { color } from "../../styles/colorsTheme";
 import { useTheme } from "../context/themeContext";
 
-export const CardCountry = () => {
+type Country = {
+  name: string;
+  capital: string;
+  flag: string;
+  region: string;
+  population: number;
+};
+
+export const CardCountry = ({ name,capital,flag,region,population}: Country) => {
   const { bg } = useTheme();
 
   return (
@@ -18,24 +23,24 @@ export const CardCountry = () => {
         objectFit="cover"
         width="100%"
         height="173px"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1vMiSwZ9r9LWETwHOUQWIVAidUpT4ZKL29w&usqp=CAU"
+        src={flag}
       />
       <Flex flexDir="column" px="20px" flex="1">
         <Box marginTop="15px">
           <Text fontSize="20px" fontWeight="bold" marginBottom="10px">
-            Brazil
+            {name}
           </Text>
         </Box>
         <Box>
           <Text>
             {" "}
-            <b>Population:</b> 206.135.893
+            <b>Population:</b> {population}
           </Text>
           <Text>
-            <b>Region:</b> Americas
+            <b>Region:</b> {region}
           </Text>
           <Text>
-            <b>Capital:</b> Brasília
+            <b>Capital:</b> {capital}
           </Text>
         </Box>
       </Flex>

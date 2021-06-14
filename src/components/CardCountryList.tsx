@@ -1,7 +1,19 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { CardCountry } from "./CardCountry";
 
-export const CardCountryList = () => {
+type Country = {
+  name: string;
+  capital: string;
+  flag: string;
+  region: string;
+  population: number;
+};
+
+interface CardCountryLisProps {
+  data: Country[];
+}
+
+export const CardCountryList = ({ data }: CardCountryLisProps) => {
   return (
     <SimpleGrid
       w="100%"
@@ -10,17 +22,16 @@ export const CardCountryList = () => {
       spacing={["20px", "40px"]}
       paddingBottom="30px"
     >
-      <CardCountry />
-      <CardCountry />
-      <CardCountry />
+      {data?.map((country) => (
+        <CardCountry
+          name={country.name}
+          capital={country.capital}
+          flag={country.flag}
+          region={country.region}
+          population={country.population}
+        />
+      ))}
 
-      <CardCountry />
-      <CardCountry />
-      <CardCountry />
-
-      <CardCountry />
-      <CardCountry />
-      <CardCountry />
     </SimpleGrid>
   );
 };
