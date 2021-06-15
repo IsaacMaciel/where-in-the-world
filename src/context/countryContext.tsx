@@ -4,7 +4,7 @@ import { createContext } from "react";
 import { useQuery } from "react-query";
 import { api } from "../services/api";
 
-type Country = {
+export type Country = {
   name: string;
   capital: string;
   flag: string;
@@ -12,30 +12,17 @@ type Country = {
   population: string;
 };
 
-type Languagues = {
-  name: string
-}
-
-type CountryMoreInfo  = {
-  nativeName: string;
-  subregion: string;
-  topLevelDomain: string[]
-  languagues: Languagues[]
-  borders: string[]
-} & Country
-
 type CountryProviderProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 type CountryContextData = {
-  data: Country[],
-  isLoading: boolean,
-  error: unknown
-  filterByRegion: (region: string) => void
-  filterByName: (name: string) => void
-  findCountry: (countryName: string) => CountryMoreInfo
-}
+  data: Country[];
+  isLoading: boolean;
+  error: unknown;
+  filterByRegion: (region: string) => void;
+  filterByName: (name: string) => void;
+};
 
 const CountryContext = createContext({} as CountryContextData);
 
@@ -44,7 +31,11 @@ const getCountries = () => {
     ["allCountries"],
     async () => {
       const { data } = await api.get("all");
-      return data
+      localStorage.setItem(
+        "@WhereInTheWorld:allCountries",
+        JSON.stringify(data)
+      );
+      return data;
     },
     {
       staleTime: Infinity,
@@ -52,28 +43,26 @@ const getCountries = () => {
   );
 };
 
-export const CountryProvider = ({children}: CountryProviderProps) => {
-  const {data,isLoading,error} = getCountries()
-  const [originalData,setOriginalData] = useState<Country[]>();
+
+export const CountryProvider = ({ children }: CountryProviderProps) => {
+  const { data, isLoading, error } = getCountries();
+  const [originalData, setOriginalData] = useState<Country[]>();
   const [filteredData, setFilteredData] = useState<Country[]>();
 
-  console.log('data: ', originalData)
-
   useEffect(() => {
-    const formattedData = data?.map(country => {
+    const formattedData = data?.map((country) => {
       return {
         ...country,
-        population: country.population.toLocaleString('pt-BR')
-      }
-    })
-    setOriginalData(formattedData)
-    setFilteredData(formattedData)
-  },[data])
-
+        population: country.population.toLocaleString("pt-BR"),
+      };
+    });
+    setOriginalData(formattedData);
+    setFilteredData(formattedData);
+  }, [data]);
 
   const filterByRegion = (region: string) => {
     if (!region) {
-      setFilteredData(originalData)
+      setFilteredData(originalData);
       return;
     }
     const countriesFiltered = originalData.filter(
@@ -89,27 +78,22 @@ export const CountryProvider = ({children}: CountryProviderProps) => {
     setFilteredData(countriesFiltered);
   };
 
-  const findCountry = (countryName: string) => {
-    const country = data.find(country => country.name.toLocaleLowerCase() === countryName.toLocaleLowerCase())
-    country.population = country.population.toLocaleString('pt-BR')
-    return country
-  }
-
   return (
-    <CountryContext.Provider value={{
-      data: filteredData,
-      isLoading,
-      error,
-      filterByName,
-      filterByRegion,
-      findCountry
-    }}>
+    <CountryContext.Provider
+      value={{
+        data: filteredData,
+        isLoading,
+        error,
+        filterByName,
+        filterByRegion,
+      }}
+    >
       {children}
     </CountryContext.Provider>
-  )
+  );
 };
 
 export const useDataCountry = () => {
-  const ctx = useContext(CountryContext)
+  const ctx = useContext(CountryContext);
   return ctx;
-}
+};

@@ -4,6 +4,7 @@ import { theme } from "../../styles/theme";
 import { CountryProvider } from "../context/countryContext";
 import { ThemeProvider } from "../context/themeContext";
 import { queryClient } from "../services/queryClient";
+import {ReactQueryDevtools} from "react-query/devtools"
 function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps }) {
           </ThemeProvider>
         </ChakraProvider>
       </CountryProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }
