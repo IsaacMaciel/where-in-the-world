@@ -6,7 +6,7 @@ type Country = {
   capital: string;
   flag: string;
   region: string;
-  population: number;
+  population: string;
 };
 
 interface CardCountryLisProps {

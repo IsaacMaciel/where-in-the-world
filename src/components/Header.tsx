@@ -3,10 +3,8 @@ import {
   Flex,
   Text,
   Button,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { RiMoonLine, RiSunLine } from "react-icons/ri";
-import { color } from "../../styles/colorsTheme";
 import { useTheme } from "../context/themeContext";
 
 const Header = () => {

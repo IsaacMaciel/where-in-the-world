@@ -3,15 +3,11 @@ import { SearchCountry } from "../components/SearchCountry";
 import { VStack, Flex, Box } from "@chakra-ui/react";
 import { SelectRegion } from "../components/SelectRegion";
 import { CardCountryList } from "../components/CardCountryList";
-import { api } from "../services/api";
-import { useQuery } from "react-query";
 import { SpinnerLoading } from "../components/SpinnerLoading";
 import { useDataCountry } from "../context/countryContext";
 
 export default function Home() {
   const {data,isLoading} = useDataCountry()
-  console.log('data: ',data)
-  console.log('isLoading: ',isLoading)
  
   if (isLoading)  return <SpinnerLoading />
 

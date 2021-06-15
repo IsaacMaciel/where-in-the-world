@@ -11,14 +11,14 @@ type Country = {
   capital: string;
   flag: string;
   region: string;
-  population: number;
+  population: string;
 };
 
 export const CardCountry = ({ name,capital,flag,region,population}: Country) => {
   const { bg } = useTheme();
 
   return (
-    <Box width="280px" height="330px" bgColor={bg} boxShadow="base">
+    <Box width="280px" height="auto" cursor="pointer" paddingBottom="20px" bgColor={bg} boxShadow="base">
       <Image
         objectFit="cover"
         width="100%"
