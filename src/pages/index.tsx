@@ -18,7 +18,6 @@ export default function Home() {
 
   return (
     <VStack spacing="40px" alignItems="unset">
-      <Header />
       <Box w="100%">
         <VStack
           maxW="1440px"

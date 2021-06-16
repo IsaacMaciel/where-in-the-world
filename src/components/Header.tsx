@@ -25,6 +25,7 @@ const Header = () => {
       w="100%"
       padding={["20px 20px","20px 40px"]}
       marginX="auto"
+      marginBottom={["20px","40px"]}
       alignItems="center"
     >
       <Text fontWeight="bold" fontSize={["16px","24px"]}>

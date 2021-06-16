@@ -99,12 +99,11 @@ export default function country() {
   }, [data]);
 
   if (isLoading) {
-    return <SpinnerLoading />;
+    return <SpinnerLoading text={"Loading country information..."} />;
   }
 
   return (
     <VStack spacing={["30px","60px"]} alignItems="unset" paddingBottom="30px">
-      <Header />
       <VStack
         maxW="1440px"
         spacing="60px"
