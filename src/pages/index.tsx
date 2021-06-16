@@ -1,6 +1,5 @@
-import { Header } from "../components/Header";
 import { SearchCountry } from "../components/SearchCountry";
-import { VStack, Flex, Box } from "@chakra-ui/react";
+import { VStack, Flex, Box, theme } from "@chakra-ui/react";
 import { SelectRegion } from "../components/SelectRegion";
 import { CardCountryList } from "../components/CardCountryList";
 import { SpinnerLoading } from "../components/SpinnerLoading";
@@ -8,13 +7,12 @@ import { useDataCountry } from "../context/countryContext";
 import { useEffect } from "react";
 
 export default function Home() {
-  const {data,isLoading,filterByName} = useDataCountry()
- 
-  if (isLoading)  return <SpinnerLoading />
+  const { data, isLoading, filterByName } = useDataCountry();
+  if (isLoading) return <SpinnerLoading text="Loading data..." />;
 
   useEffect(() => {
-    filterByName('')
-  },[])
+    filterByName("");
+  }, []);
 
   return (
     <VStack spacing="40px" alignItems="unset">
@@ -24,9 +22,13 @@ export default function Home() {
           spacing="40px"
           alignItems="unset"
           marginX="auto"
-          paddingX={["20px","40px"]}
+          paddingX={["20px", "40px"]}
         >
-          <Flex justifyContent={"space-between"} flexDir={["column","row"]} alignItems={["flex-start","center"]}>
+          <Flex
+            justifyContent={"space-between"}
+            flexDir={["column", "row"]}
+            alignItems={["flex-start", "center"]}
+          >
             <SearchCountry />
             <SelectRegion />
           </Flex>

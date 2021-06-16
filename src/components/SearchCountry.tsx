@@ -1,11 +1,12 @@
-import { Flex, Input, Icon } from "@chakra-ui/react";
+import { Flex, Input, Icon, useColorModeValue } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
 import { useDataCountry } from "../context/countryContext";
 import { useTheme } from "../context/themeContext";
 
 export const SearchCountry = () => {
-  const { bg } = useTheme();
+  const { bg, colorText } = useTheme();
   const { filterByName } = useDataCountry();
+
 
   const handleSearch = (event) => {
     filterByName(event.target.value);
@@ -25,7 +26,7 @@ export const SearchCountry = () => {
       <Icon as={FiSearch} />
       <Input
         placeholder="Search for a country..."
-        _placeholder={{ color: "#FFF", fontSize: "14px" }}
+        _placeholder={{ color: colorText, fontSize: "14px" }}
         variant="unstyled"
         ml="4"
         onChange={handleSearch}

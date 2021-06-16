@@ -10,6 +10,7 @@ type ThemeProviderProps = {
 
 type ThemeProviderData = {
   bg: string
+  colorText: string;
 }
 
 const ThemeContext = createContext({} as ThemeProviderData)
@@ -17,9 +18,11 @@ const ThemeContext = createContext({} as ThemeProviderData)
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const bg = useColorModeValue("#ffffff", color.dark.darkBlue);
+  const colorText = useColorModeValue("black", "#fff");
+
 
   return (
-    <ThemeContext.Provider value={{bg}}>
+    <ThemeContext.Provider value={{bg,colorText}}>
       {children}
     </ThemeContext.Provider>
   )

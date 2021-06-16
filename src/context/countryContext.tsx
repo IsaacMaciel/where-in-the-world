@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { createContext } from "react";
 import { useQuery } from "react-query";
 import { api } from "../services/api";
+import { storage } from "../utils/localStorage";
 
 export type Country = {
   name: string;
@@ -30,7 +31,8 @@ const getCountries = () => {
   return useQuery(
     ["allCountries"],
     async () => {
-      const { data } = await api.get("/all?fields=flag;name;population;region;capital'");
+      const { data } = await api.get("/all");
+      storage.storeData(storage.getLocalStorageKey(), data);
       return data;
     },
     {

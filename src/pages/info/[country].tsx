@@ -2,7 +2,7 @@ import { VStack, Button, Image, Flex, Text, Spinner } from "@chakra-ui/react";
 import { Header } from "../../components/Header";
 import { BsArrowLeft } from "react-icons/bs";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { api } from "../../services/api";
 import { useQuery } from "react-query";
 import { Country, useDataCountry } from "../../context/countryContext";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import { SpinnerLoading } from "../../components/SpinnerLoading";
 import { toast } from "react-toastify";
 import { handlePrefetchCountry } from "../../utils/prefetchCountry";
+import { storage } from "../../utils/localStorage";
 
 type Languagues = {
   name: string;
@@ -39,24 +40,6 @@ export default function country() {
   const { query } = useRouter();
   const countryName = query.country as string;
 
-  const getCountry = () => {
-    return useQuery(
-      ["countryInfo", countryName],
-      async () => {
-        if (!countryName) return;
-        const { data } = await api.get(`/name/${countryName}`, {
-          params: {
-            fullText: true,
-          },
-        });
-        return data;
-      },
-      {
-        staleTime: Infinity,
-      }
-    );
-  };
-
   const getBordersName = async (borders: string[]) => {
     if (borders.length === 0) {
       setBorders([{ name: "Not have" }]);
@@ -78,32 +61,28 @@ export default function country() {
     return stringBorders;
   };
 
-  const { isLoading, data } = getCountry();
-
   useEffect(() => {
-    const countryFormatted = data?.map((country) => {
-      return {
-        ...country,
-        population: country.population.toLocaleString("pt-BR"),
-      };
-    });
-
-    if (countryFormatted) {
-      setCountry(countryFormatted[0]);
-      getBordersName(countryFormatted[0].borders);
+    if (!storage.isLocalStorage()) {
+      router.push("/");
+      return;
+    }
+    const countrySelected = storage.getCountryByLocalStorage(countryName);
+    if (countrySelected) {
+      setCountry(countrySelected);
+      getBordersName(countrySelected.borders);
     }
 
     return function cleanup() {
       setBorders([]);
     };
-  }, [data]);
+  }, [countryName]);
 
-  if (isLoading) {
+  if (!country) {
     return <SpinnerLoading text={"Loading country information..."} />;
   }
 
   return (
-    <VStack spacing={["30px","60px"]} alignItems="unset" paddingBottom="30px">
+    <VStack spacing={["30px", "60px"]} alignItems="unset" paddingBottom="30px">
       <VStack
         maxW="1440px"
         spacing="60px"
@@ -128,8 +107,8 @@ export default function country() {
             maxH={["300px", "550px"]}
             maxWidth={["300px", "550px"]}
             src={country?.flag}
-            marginRight={{base: "unset", md: "unset", lg: "100px"}}
-            marginBottom={{base: "30px", md: "30px", lg: "unset"}}
+            marginRight={{ base: "unset", md: "unset", lg: "100px" }}
+            marginBottom={{ base: "30px", md: "30px", lg: "unset" }}
           />
           <Flex flexDir="column" flexWrap="wrap" maxWidth="550px" flex="1">
             <Text fontWeight="bold" fontSize="24px" marginBottom="20px">
@@ -137,11 +116,11 @@ export default function country() {
             </Text>
             <Flex
               justifyContent="space-between"
-              marginBottom={["30px","60px"]}
+              marginBottom={["30px", "60px"]}
               flexDir={["column", "row"]}
             >
               <VStack
-                spacing={["10px","5px"]}
+                spacing={["10px", "5px"]}
                 alignItems="unset"
                 marginBottom={["40px", "unset"]}
               >
@@ -161,7 +140,7 @@ export default function country() {
                   <b>Capital</b>: {country?.capital}
                 </Text>
               </VStack>
-              <VStack spacing={["10px","5px"]} alignItems="unset">
+              <VStack spacing={["10px", "5px"]} alignItems="unset">
                 <Text>
                   <b>Top Level Domain</b>:{" "}
                   {country?.topLevelDomain.map((topLevel) => `${topLevel} `)}
