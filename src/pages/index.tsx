@@ -5,11 +5,16 @@ import { SelectRegion } from "../components/SelectRegion";
 import { CardCountryList } from "../components/CardCountryList";
 import { SpinnerLoading } from "../components/SpinnerLoading";
 import { useDataCountry } from "../context/countryContext";
+import { useEffect } from "react";
 
 export default function Home() {
-  const {data,isLoading} = useDataCountry()
+  const {data,isLoading,filterByName} = useDataCountry()
  
   if (isLoading)  return <SpinnerLoading />
+
+  useEffect(() => {
+    filterByName('')
+  },[])
 
   return (
     <VStack spacing="40px" alignItems="unset">
@@ -20,9 +25,9 @@ export default function Home() {
           spacing="40px"
           alignItems="unset"
           marginX="auto"
-          paddingX="40px"
+          paddingX={["20px","40px"]}
         >
-          <Flex justifyContent="space-between" alignItems="center">
+          <Flex justifyContent={"space-between"} flexDir={["column","row"]} alignItems={["flex-start","center"]}>
             <SearchCountry />
             <SelectRegion />
           </Flex>

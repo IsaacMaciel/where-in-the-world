@@ -92,6 +92,10 @@ export default function country() {
       setCountry(countryFormatted[0]);
       getBordersName(countryFormatted[0].borders);
     }
+
+    return function cleanup() {
+      setBorders([]);
+    };
   }, [data]);
 
   if (isLoading) {
@@ -99,7 +103,7 @@ export default function country() {
   }
 
   return (
-    <VStack spacing="60px" alignItems="unset" paddingBottom="30px">
+    <VStack spacing={["30px","60px"]} alignItems="unset" paddingBottom="30px">
       <Header />
       <VStack
         maxW="1440px"
@@ -111,25 +115,37 @@ export default function country() {
         <Link href="/">
           <Button
             leftIcon={<BsArrowLeft fontSize="20px" />}
-            width="120px"
+            width={"120px"}
             boxShadow="base"
           >
             Back
           </Button>
         </Link>
-        <Flex alignItems="center">
+        <Flex
+          alignItems="center"
+          flexDir={["column", "column", "column", "row"]}
+        >
           <Image
-            maxH="550px"
-            maxWidth="550px"
+            maxH={["300px", "550px"]}
+            maxWidth={["300px", "550px"]}
             src={country?.flag}
-            marginRight="100px"
+            marginRight={{base: "unset", md: "unset", lg: "100px"}}
+            marginBottom={{base: "30px", md: "30px", lg: "unset"}}
           />
           <Flex flexDir="column" flexWrap="wrap" maxWidth="550px" flex="1">
             <Text fontWeight="bold" fontSize="24px" marginBottom="20px">
               {country?.name}
             </Text>
-            <Flex justifyContent="space-between" marginBottom="60px">
-              <VStack spacing="5px" alignItems="unset">
+            <Flex
+              justifyContent="space-between"
+              marginBottom={["30px","60px"]}
+              flexDir={["column", "row"]}
+            >
+              <VStack
+                spacing={["10px","5px"]}
+                alignItems="unset"
+                marginBottom={["40px", "unset"]}
+              >
                 <Text>
                   <b>Native Name</b>: {country?.nativeName}
                 </Text>
@@ -146,7 +162,7 @@ export default function country() {
                   <b>Capital</b>: {country?.capital}
                 </Text>
               </VStack>
-              <VStack spacing="5px" alignItems="unset">
+              <VStack spacing={["10px","5px"]} alignItems="unset">
                 <Text>
                   <b>Top Level Domain</b>:{" "}
                   {country?.topLevelDomain.map((topLevel) => `${topLevel} `)}
@@ -165,7 +181,7 @@ export default function country() {
               <Text marginRight="20px" lineHeight="32px" fontWeight="bold">
                 Border Countries:
               </Text>
-              {!borders ? (
+              {!borders || borders.length === 0 ? (
                 <Spinner />
               ) : (
                 borders.map((country) => {

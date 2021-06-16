@@ -32,6 +32,7 @@ export const CardCountry = ({
         height="auto"
         cursor="pointer"
         paddingBottom="20px"
+        margin={["0 auto","unset"]}
         bgColor={bg}
         boxShadow="base"
         onMouseEnter={() => handlePrefetchCountry(name)}

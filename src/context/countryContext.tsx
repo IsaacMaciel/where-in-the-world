@@ -30,11 +30,7 @@ const getCountries = () => {
   return useQuery(
     ["allCountries"],
     async () => {
-      const { data } = await api.get("all");
-      localStorage.setItem(
-        "@WhereInTheWorld:allCountries",
-        JSON.stringify(data)
-      );
+      const { data } = await api.get("/all?fields=flag;name;population;region;capital'");
       return data;
     },
     {
@@ -42,7 +38,6 @@ const getCountries = () => {
     }
   );
 };
-
 
 export const CountryProvider = ({ children }: CountryProviderProps) => {
   const { data, isLoading, error } = getCountries();
@@ -72,10 +67,12 @@ export const CountryProvider = ({ children }: CountryProviderProps) => {
   };
 
   const filterByName = (name: string) => {
-    const countriesFiltered = originalData.filter((country) =>
-      country.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
-    );
-    setFilteredData(countriesFiltered);
+    if (originalData) {
+      const countriesFiltered = originalData.filter((country) =>
+        country.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
+      );
+      setFilteredData(countriesFiltered);
+    }
   };
 
   return (

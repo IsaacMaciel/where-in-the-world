@@ -5,25 +5,31 @@ import { useTheme } from "../context/themeContext";
 
 export const SearchCountry = () => {
   const { bg } = useTheme();
-  const {filterByName} = useDataCountry()
+  const { filterByName } = useDataCountry();
 
   const handleSearch = (event) => {
-    filterByName(event.target.value)
-  }
+    filterByName(event.target.value);
+  };
   return (
     <Flex
       as="label"
       maxW="400px"
       width="100%"
       alignItems="center"
-      py="2"
+      py="3"
       px="6"
       borderRadius="base"
       bgColor={bg}
       boxShadow="base"
     >
       <Icon as={FiSearch} />
-      <Input placeholder="Search for a country..." variant="unstyled" ml="4" onChange={handleSearch} />
+      <Input
+        placeholder="Search for a country..."
+        _placeholder={{ color: "#FFF", fontSize: "14px" }}
+        variant="unstyled"
+        ml="4"
+        onChange={handleSearch}
+      />
     </Flex>
   );
 };
