@@ -18,10 +18,10 @@ type CountryMoreInfo = {
 } & Country;
 
 interface ILocalStorageApp {
-    getCountryByLocalStorage: (countryName: string) => CountryMoreInfo
-    getLocalStorageKey:() => string;
-    storeData: (localStorageKey: string, data: any) => void;
-    isLocalStorage: () => boolean
+  getCountryByLocalStorage: (countryName: string) => CountryMoreInfo;
+  getLocalStorageKey: () => string;
+  storeData: (localStorageKey: string, data: any) => void;
+  isLocalStorage: () => boolean;
 }
 
 class LocalStorageApp implements ILocalStorageApp {
@@ -46,8 +46,9 @@ class LocalStorageApp implements ILocalStorageApp {
   };
 
   isLocalStorage = () => {
-    return !!localStorage.getItem(this.localStorageKey) 
-  }
+    return !!localStorage.getItem(this.localStorageKey);
+  };
+
   storeData = (localStorageKey: string, data: any) => {
     localStorage.setItem(localStorageKey, JSON.stringify(data));
   };

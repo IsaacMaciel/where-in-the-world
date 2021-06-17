@@ -13,3 +13,4 @@ const handlePrefetchCountry = async (name: string) => {
 };
 
 export { handlePrefetchCountry };
+

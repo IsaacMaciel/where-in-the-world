@@ -1,12 +1,6 @@
 import { Box, Image, Flex, Text } from "@chakra-ui/react";
-import { useTheme } from "../context/themeContext";
-import { useRouter } from "next/router";
+import { useLayout } from "../context/themeContext";
 import Link from "next/link";
-import { queryClient } from "../services/queryClient";
-import { api } from "../services/api";
-import { handlePrefetchCountry } from "../utils/prefetchCountry";
-
-
 
 type Country = {
   name: string;
@@ -23,7 +17,7 @@ export const CardCountry = ({
   region,
   population,
 }: Country) => {
-  const { bg } = useTheme();
+  const { bg } = useLayout();
 
   return (
     <Link  href={`/info/${name}`}>
@@ -35,7 +29,6 @@ export const CardCountry = ({
         margin={["0 auto","unset"]}
         bgColor={bg}
         boxShadow="base"
-        onMouseEnter={() => handlePrefetchCountry(name)}
       >
         <Image objectFit="cover" width="100%" height="173px" src={flag} />
         <Flex flexDir="column" px="20px" flex="1">

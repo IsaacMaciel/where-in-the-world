@@ -32,7 +32,6 @@ const getCountries = () => {
     ["allCountries"],
     async () => {
       const { data } = await api.get("/all");
-      storage.storeData(storage.getLocalStorageKey(), data);
       return data;
     },
     {
@@ -53,8 +52,11 @@ export const CountryProvider = ({ children }: CountryProviderProps) => {
         population: country.population.toLocaleString("pt-BR"),
       };
     });
-    setOriginalData(formattedData);
-    setFilteredData(formattedData);
+    if(formattedData) {
+      storage.storeData(storage.getLocalStorageKey(), formattedData);
+      setOriginalData(formattedData);
+      setFilteredData(formattedData);
+    }
   }, [data]);
 
   const filterByRegion = (region: string) => {
@@ -69,7 +71,7 @@ export const CountryProvider = ({ children }: CountryProviderProps) => {
   };
 
   const filterByName = (name: string) => {
-    if (originalData) {
+    if (filteredData) {
       const countriesFiltered = originalData.filter((country) =>
         country.name.toLocaleLowerCase().includes(name.toLocaleLowerCase())
       );

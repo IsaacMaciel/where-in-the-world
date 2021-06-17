@@ -1,16 +1,24 @@
 import { Flex, Input, Icon, useColorModeValue } from "@chakra-ui/react";
+import { ChangeEvent, ChangeEventHandler } from "react";
+import { useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import { useDataCountry } from "../context/countryContext";
-import { useTheme } from "../context/themeContext";
+import { useLayout } from "../context/themeContext";
 
-export const SearchCountry = () => {
-  const { bg, colorText } = useTheme();
+interface SearchCountryProps {
+  handleSearch:(event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const SearchCountry = ({ handleSearch}: SearchCountryProps) => {
+  const { bg, colorText } = useLayout();
   const { filterByName } = useDataCountry();
 
+  useEffect(() => {
+    return function cleanup() {
+      filterByName("");
+    };
+  }, []);
 
-  const handleSearch = (event) => {
-    filterByName(event.target.value);
-  };
   return (
     <Flex
       as="label"

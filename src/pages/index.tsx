@@ -4,15 +4,20 @@ import { SelectRegion } from "../components/SelectRegion";
 import { CardCountryList } from "../components/CardCountryList";
 import { SpinnerLoading } from "../components/SpinnerLoading";
 import { useDataCountry } from "../context/countryContext";
-import { useEffect } from "react";
+import React, { ChangeEvent } from "react";
 
 export default function Home() {
-  const { data, isLoading, filterByName } = useDataCountry();
-  if (isLoading) return <SpinnerLoading text="Loading data..." />;
+  const { data, isLoading, filterByName, filterByRegion } = useDataCountry();
 
-  useEffect(() => {
-    filterByName("");
-  }, []);
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    filterByName(event.target.value);
+  };
+
+  const handleSelectRegion = (event: ChangeEvent<HTMLSelectElement>) => {
+    filterByRegion(event.target.value);
+  };
+
+  if (isLoading) return <SpinnerLoading text="Loading data..." />;
 
   return (
     <VStack spacing="40px" alignItems="unset">
@@ -29,8 +34,8 @@ export default function Home() {
             flexDir={["column", "row"]}
             alignItems={["flex-start", "center"]}
           >
-            <SearchCountry />
-            <SelectRegion />
+            <SearchCountry handleSearch={handleSearch} />
+            <SelectRegion handleSelectRegion={handleSelectRegion} />
           </Flex>
           <CardCountryList data={data} />
         </VStack>

@@ -1,30 +1,23 @@
 import { Select, useBreakpointValue } from "@chakra-ui/react";
-import { useDataCountry } from "../context/countryContext";
-import { useTheme } from "../context/themeContext";
+import { ChangeEvent } from "react";
+import { useLayout } from "../context/themeContext";
 
-export const SelectRegion = () => {
-  const { bg } = useTheme();
-  const { filterByRegion } = useDataCountry();
+interface SelectRegionProps {
+  handleSelectRegion: (event: ChangeEvent<HTMLSelectElement>) => void;
+}
 
-  const isMobile = useBreakpointValue({
-    base: true,
-    md: false
-  })
+export const SelectRegion = ({ handleSelectRegion }: SelectRegionProps) => {
+  const { bg, isMobile } = useLayout();
 
-  const handleSelectRegion = (event) => {
-      filterByRegion(event.target.value);
-  };
   return (
     <Select
       bgColor={bg}
       maxW="180px"
-      marginTop={["30px","unset"]}
+      marginTop={["30px", "unset"]}
       height="40px"
       placeholder="Filter by Region"
       onChange={handleSelectRegion}
       size={isMobile ? "sm" : "md"}
-      
-      
     >
       <option value="Africa">África</option>
       <option value="Americas">América</option>

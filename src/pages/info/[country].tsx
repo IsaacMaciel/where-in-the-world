@@ -12,6 +12,7 @@ import { SpinnerLoading } from "../../components/SpinnerLoading";
 import { toast } from "react-toastify";
 import { handlePrefetchCountry } from "../../utils/prefetchCountry";
 import { storage } from "../../utils/localStorage";
+import { formatter } from "../../utils/formmatCountry";
 
 type Languagues = {
   name: string;
@@ -88,7 +89,7 @@ export default function country() {
         spacing="60px"
         alignItems="unset"
         marginX="auto"
-        paddingX="40px"
+        paddingX={["20px", "40px"]}
       >
         <Link href="/">
           <Button
@@ -143,15 +144,19 @@ export default function country() {
               <VStack spacing={["10px", "5px"]} alignItems="unset">
                 <Text>
                   <b>Top Level Domain</b>:{" "}
-                  {country?.topLevelDomain.map((topLevel) => `${topLevel} `)}
+                  {formatter.textWithComa(country?.topLevelDomain)}
                 </Text>
                 <Text>
                   <b>Currencies</b>:{" "}
-                  {country?.currencies.map((currency) => `${currency.name}, `)}
+                  {formatter.textWithComa(
+                    country?.currencies.map((currency) => currency.name)
+                  )}
                 </Text>
                 <Text>
                   <b>Languages</b>:{" "}
-                  {country?.languages.map((language) => `${language.name}, `)}
+                  {formatter.textWithComa(
+                    country?.languages.map((languague) => languague.name)
+                  )}
                 </Text>
               </VStack>
             </Flex>
