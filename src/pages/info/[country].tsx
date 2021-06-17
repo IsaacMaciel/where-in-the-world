@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { SpinnerLoading } from "../../components/SpinnerLoading";
 import { toast } from "react-toastify";
-import { handlePrefetchCountry } from "../../utils/prefetchCountry";
 import { storage } from "../../utils/localStorage";
 import { formatter } from "../../utils/formmatCountry";
 
@@ -176,7 +175,6 @@ export default function country() {
                         size="sm"
                         marginRight="10px"
                         marginBottom="10px"
-                        onMouseEnter={() => handlePrefetchCountry(country.name)}
                       >
                         {country.name}
                       </Button>
