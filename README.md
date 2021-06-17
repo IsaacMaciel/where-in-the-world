@@ -20,7 +20,7 @@
 Where in the World é um projeto visando solucionar o desafio proposto pela [Frontend mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca).
 
 
-## Funcionalidades
+## 🕹Funcionalidades
 * Listagem de todos os países
 * Filtrar o país pelo nome ou pela região
 * Ver informações adicionais
