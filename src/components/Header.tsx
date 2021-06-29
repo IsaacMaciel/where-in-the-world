@@ -2,7 +2,7 @@ import { Flex, Text, Button } from "@chakra-ui/react";
 import { RiMoonLine, RiSunLine } from "react-icons/ri";
 import { useLayout } from "../context/themeContext";
 
-const Header = () => {
+export const Header = () => {
   const { bg, isMobile, colorMode, toggleColorMode } = useLayout();
   const icon = colorMode === "dark" ? <RiSunLine /> : <RiMoonLine />;
 
@@ -31,4 +31,3 @@ const Header = () => {
   );
 };
 
-export { Header };

@@ -1,10 +1,10 @@
-import { Flex, Spinner,Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 
-interface SpinnerLoadingProps  {
+interface SpinnerLoadingProps {
   text?: string;
 }
 
-export const SpinnerLoading = ({text = ''}:SpinnerLoadingProps) => (
+export const SpinnerLoading = ({ text }: SpinnerLoadingProps) => (
   <Flex h="100vh" justifyContent="center" flexDir="column" alignItems="center">
     <Spinner
       thickness="4px"
@@ -14,6 +14,10 @@ export const SpinnerLoading = ({text = ''}:SpinnerLoadingProps) => (
       size="xl"
       marginBottom="20px"
     />
-    {!!text && <Text fontWeight="bold" fontSize={["16px","24px"]}>{text}</Text>}
+    {!!text && (
+      <Text fontWeight="bold" fontSize={["16px", "24px"]}>
+        {text}
+      </Text>
+    )}
   </Flex>
 );

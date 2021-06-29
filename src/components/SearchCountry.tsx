@@ -11,13 +11,6 @@ interface SearchCountryProps {
 
 export const SearchCountry = ({ handleSearch}: SearchCountryProps) => {
   const { bg, colorText } = useLayout();
-  const { filterByName } = useDataCountry();
-
-  useEffect(() => {
-    return function cleanup() {
-      filterByName("");
-    };
-  }, []);
 
   return (
     <Flex

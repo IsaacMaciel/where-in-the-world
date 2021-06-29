@@ -5,6 +5,7 @@ import { CardCountryList } from "../components/CardCountryList";
 import { SpinnerLoading } from "../components/SpinnerLoading";
 import { useDataCountry } from "../context/countryContext";
 import React, { ChangeEvent } from "react";
+import { useEffect } from "react";
 
 export default function Home() {
   const { data, isLoading, filterByName, filterByRegion } = useDataCountry();
@@ -18,6 +19,13 @@ export default function Home() {
   };
 
   if (isLoading) return <SpinnerLoading text="Loading data..." />;
+
+  useEffect(() => {
+    return () => {
+      filterByName('')
+      filterByRegion('')
+    }
+  },[])
 
   return (
     <VStack spacing="40px" alignItems="unset">
