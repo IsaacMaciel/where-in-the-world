@@ -8,7 +8,8 @@ import React, { ChangeEvent } from "react";
 import { useEffect } from "react";
 
 export default function Home() {
-  const { data, isLoading, filterByName, filterByRegion } = useDataCountry();
+  const { data, isLoading, filterByName, filterByRegion, resetFilters } =
+    useDataCountry();
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     filterByName(event.target.value);
@@ -21,11 +22,8 @@ export default function Home() {
   if (isLoading) return <SpinnerLoading text="Loading data..." />;
 
   useEffect(() => {
-    return () => {
-      filterByName('')
-      filterByRegion('')
-    }
-  },[])
+    resetFilters()
+  }, []);
 
   return (
     <VStack spacing="40px" alignItems="unset">

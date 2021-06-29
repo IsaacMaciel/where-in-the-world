@@ -23,6 +23,7 @@ type CountryContextData = {
   error: unknown;
   filterByRegion: (region: string) => void;
   filterByName: (name: string) => void;
+  resetFilters: () => void;
 };
 
 const CountryContext = createContext({} as CountryContextData);
@@ -79,6 +80,10 @@ export const CountryProvider = ({ children }: CountryProviderProps) => {
     }
   };
 
+  const resetFilters = () => {
+    setFilteredData(originalData)
+  }
+
   return (
     <CountryContext.Provider
       value={{
@@ -87,6 +92,7 @@ export const CountryProvider = ({ children }: CountryProviderProps) => {
         error,
         filterByName,
         filterByRegion,
+        resetFilters
       }}
     >
       {children}

@@ -1,10 +1,8 @@
 import { VStack, Button, Image, Flex, Text, Spinner } from "@chakra-ui/react";
-import { Header } from "../../components/Header";
 import { BsArrowLeft } from "react-icons/bs";
 import Link from "next/link";
 import router, { useRouter } from "next/router";
 import { api } from "../../services/api";
-import { useQuery } from "react-query";
 import { Country, useDataCountry } from "../../context/countryContext";
 import { useEffect } from "react";
 import { useState } from "react";
